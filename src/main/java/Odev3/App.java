@@ -4,13 +4,13 @@
 package Odev3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 
 import spark.ModelAndView;
-import spark.Route;
+//import spark.Route;
 import spark.template.mustache.MustacheTemplateEngine;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -19,11 +19,22 @@ import static spark.Spark.port;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
 public class App {
     public String getGreeting() {
         return "Hello world.";
+    }
+    
+    public static Integer topla(ArrayList<Integer> array, int sayi1, int sayi2, int sayi3){
+
+        if(array == null){
+            System.out.println(" Girilen sayi mevcut degil.");
+        }
+        int sonuc = sayi1 + sayi2 + sayi3;
+        array.add(sayi1);
+        array.add(sayi2);
+        array.add(sayi3);
+        
+        return sonuc;
     }
 
     public static void main(String[] args) {
@@ -32,14 +43,45 @@ public class App {
         Logger logger= LogManager.getLogger(App.class);
         logger.error("Apache logger Mesaji");
 
-        get("/", (req,res)-> "Yazilim Muhendisligi, Odev3!");
+        port(getHerokuAssignedPort());
+        get("/", (req, res) -> "Yazilim Muhendisligi Odev3 - Uc Sayinin Toplami");
+        post("/compute", (req, res) -> {
+            int sayi1_inp = Integer.parseInt(req.queryParams("sayi1")) ;
+            int sayi2_inp = Integer.parseInt(req.queryParams("sayi2")) ;
+            int sayi3_inp = Integer.parseInt(req.queryParams("sayi3")) ;
+           
+           
+            java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+                inputList.add(sayi1_inp);
+                inputList.add(sayi2_inp);
+                inputList.add(sayi3_inp);       
+            System.out.println(inputList); 
+            int sayi1 = inputList.get(0);
+            int sayi2 = inputList.get(1);
+            int sayi3 = inputList.get(2);
+            int result = App.topla(inputList, sayi1_inp, sayi2_inp, sayi3_inp);
+            
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("result", result );
+            map.put(" 1.Sayı: ", sayi1 );
+            map.put(" 2.Sayı: ", sayi2 );
+            map.put(" 3.Sayı: ", sayi3 );
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
         get("/compute",
-        (rq,rs)-> {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("result", "not computed yet!");
-            return new ModelAndView(map,"compute.mustache");
-        },
-        new MustacheTemplateEngine()
-        );
+                (rq, rs) -> {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("result", " Deger yok");
+                    return new ModelAndView(map, "compute.mustache");
+                },
+                new MustacheTemplateEngine());
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567;
     }
 }

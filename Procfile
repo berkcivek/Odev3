@@ -1,0 +1,1 @@
+web: java -jar build/libs/Odev3-all.jar

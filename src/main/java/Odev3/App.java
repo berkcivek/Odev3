@@ -39,7 +39,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
-
+        
         Logger logger= LogManager.getLogger(App.class);
         logger.error("Apache logger Mesaji");
 

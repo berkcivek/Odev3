@@ -3,6 +3,24 @@
  */
 package Odev3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+
+import spark.ModelAndView;
+import spark.Route;
+import spark.template.mustache.MustacheTemplateEngine;
+import static spark.Spark.get;
+import static spark.Spark.post;
+import static spark.Spark.port;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
@@ -10,5 +28,18 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        Logger logger= LogManager.getLogger(App.class);
+        logger.error("Apache logger Mesaji");
+
+        get("/", (req,res)-> "Yazilim Muhendisligi, Odev3!");
+        get("/compute",
+        (rq,rs)-> {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("result", "not computed yet!");
+            return new ModelAndView(map,"compute.mustache");
+        },
+        new MustacheTemplateEngine()
+        );
     }
 }

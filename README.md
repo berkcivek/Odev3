@@ -6,3 +6,5 @@ otomasyon sistemi üretmek.
 
 
 [![Build Status](https://app.travis-ci.com/berkcivek/Odev3.svg?branch=main)](https://app.travis-ci.com/berkcivek/Odev3)
+
+travis test readme

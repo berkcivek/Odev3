@@ -56,6 +56,7 @@ public class App {
                 inputList.add(sayi2_inp);
                 inputList.add(sayi3_inp);       
             System.out.println(inputList); 
+            
             int sayi1 = inputList.get(0);
             int sayi2 = inputList.get(1);
             int sayi3 = inputList.get(2);

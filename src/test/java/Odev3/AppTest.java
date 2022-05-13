@@ -13,4 +13,22 @@ class AppTest {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
+
+
+
+    @Test
+    public void testNull(){
+        
+        java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+        assertNotNull(inputList);
+    }
+    /*
+    @Test
+    public void testTrue(){
+       
+        java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+        App.topla(inputList, 2, 2, 3);      
+        assertTrue();
+    }
+    */
 }

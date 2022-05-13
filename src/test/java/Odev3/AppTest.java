@@ -17,18 +17,27 @@ class AppTest {
 
 
     @Test
-    public void testNull(){
+    public void testNullArray(){
         
         java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
         assertNotNull(inputList);
     }
-    /*
+    
     @Test
-    public void testTrue(){
+    public void testNotNull(){
        
-        java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
-        App.topla(inputList, 2, 2, 3);      
-        assertTrue();
+        java.util.ArrayList<Integer> array = new java.util.ArrayList<>();
+        App.topla(array, 1, 1, 1);
+        assertNotNull(array);
+    }
+
+    /*
+    @Test public void testMiss(){
+        java.util.ArrayList<Integer> array = new java.util.ArrayList<>();
+        int sayi1 = 2;
+        int sayi2 = 2;
+        int sayi3= 1;
+        assertTrue(App.topla(array,sayi1,sayi2,sayi3));
     }
     */
 }

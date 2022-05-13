@@ -23,11 +23,21 @@ public class App {
     public String getGreeting() {
         return "Hello world.";
     }
+
+
+/*   HATA
+
+    java -jar build/libs/ornek-all.jar   
+
+*/
+
+
     
+    /*  TOPLAMA */
     public static Integer topla(ArrayList<Integer> array, int sayi1, int sayi2, int sayi3){
 
         if(array == null){
-            System.out.println(" Girilen sayi mevcut degil.");
+            System.out.println(" Bos Gecilemez.");
         }
         int sonuc = sayi1 + sayi2 + sayi3;
         array.add(sayi1);
@@ -37,6 +47,7 @@ public class App {
         return sonuc;
     }
 
+    /* MAIN */
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
         
@@ -50,18 +61,21 @@ public class App {
             int sayi2_inp = Integer.parseInt(req.queryParams("sayi2")) ;
             int sayi3_inp = Integer.parseInt(req.queryParams("sayi3")) ;
            
-           
+           /* INPUT'tan alinan sayilarin diziye eklenmesi */
             java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
                 inputList.add(sayi1_inp);
                 inputList.add(sayi2_inp);
                 inputList.add(sayi3_inp);       
             System.out.println(inputList); 
             
+            /* Toplanmak icin yollanmak uzere listeden verilerin indexlerine gore cekilmesi */
             int sayi1 = inputList.get(0);
             int sayi2 = inputList.get(1);
             int sayi3 = inputList.get(2);
-            int result = App.topla(inputList, sayi1_inp, sayi2_inp, sayi3_inp);
+            int result = App.topla(inputList, sayi1, sayi2, sayi3); // Toplama
             
+
+            /* MAPPING */
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("result", result );
             map.put(" 1.Sayı: ", sayi1 );
@@ -72,7 +86,7 @@ public class App {
         get("/compute",
                 (rq, rs) -> {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("result", " Deger yok");
+                    map.put("result", " Toplama Bekleniyor ");
                     return new ModelAndView(map, "compute.mustache");
                 },
                 new MustacheTemplateEngine());
